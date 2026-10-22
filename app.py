@@ -1,41 +1,45 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="イベント前売り券 販売所", page_icon="🎫", layout="centered"
+    page_title="イベント前売り券 販売所", page_icon="🐓", layout="centered"
 )
 
+# セッション状態を使って購入完了状態を管理
+if "purchased" not in st.session_state:
+  st.session_state.purchased = False
+  st.session_state.item_name = ""
+  st.session_state.price = 0
+
 st.title("🎫 イベント前売り券 購入ページ")
-st.write("ご希望の商品を選んで決済画面へ進んでください。")
 
-st.markdown("---")
+# まだ購入手続きをしていない場合
+if not st.session_state.purchased:
+  st.write("ご希望の商品を選んで決済へ進んでください。")
+  st.markdown("---")
 
-# 商品1：1本 150円
-st.subheader("🍢 1本")
-st.write("価格: **150円**")
-if st.button("1本を購入する"):
-  st.success("以下のリンクからお支払いをお願いします！")
-  st.markdown("[👉 PayPay送金ページを開く](https://qr.paypay.ne.jp/p2p01_c2MZuCGoCeyv9mLB)")
-  st.info("※お支払い完了画面のスクショをスタッフにお見せください。")
+  # 1本 150円
+  st.subheader("🐓 1本（150円）")
+  if st.button("1本を購入する"):
+    st.session_state.purchased = True
+    st.session_state.item_name = "1本"
+    st.session_state.price = 150
+    st.rerun()
 
-st.markdown("---")
+  # もも3本 250円
+  st.subheader("🐓 もも3本（250円）")
+  if st.button("もも3本を購入する"):
+    st.session_state.purchased = True
+    st.session_state.item_name = "もも3本"
+    st.session_state.price = 250
+    st.rerun()
 
-# 商品2：もも3本 250円
-st.subheader("🍢 もも3本")
-st.write("価格: **250円**")
-if st.button("もも3本を購入する"):
-  st.success("以下のリンクからお支払いをお願いします！")
-  st.markdown("[👉 PayPay送金ページを開く](https://qr.paypay.ne.jp/p2p01_pRBtYbjovwVz6Cpt)")
-  st.info("※お支払い完了画面のスクショをスタッフにお見せください。")
-
-st.markdown("---")
-
-# 商品3：三種3本 300円
-st.subheader("🍢 三種3本")
-st.write("価格: **300円**")
-if st.button("三種3本を購入する"):
-  st.success("以下のリンクからお支払いをお願いします！")
-  st.markdown("[👉 PayPay送金ページを開く](https://qr.paypay.ne.jp/p2p01_duKTj45nemf7gA64)")
-  st.info("※お支払い完了画面のスクショをスタッフにお見せください。")
+  # 三種3本 300円
+  st.subheader("🐓 三種3本（300円）")
+  if st.button("三種3本を購入する"):
+    st.session_state.purchased = True
+    st.session_state.item_name = "三種3本"
+    st.session_state.price = 300
+    st.rerun()
 
 # 購入ボタンが押された後の「完了画面（証明・スクショ用）」
 else:
@@ -51,10 +55,13 @@ else:
       "3. 当日の受付でこの画面のスクショをご提示ください。"
   )
 
-  # PayPayのリンク（店舗用や指定金額リンクに変更可能）
-  st.markdown(
-      f"[👉 PayPay送金画面を開く (¥{st.session_state.price})](https://paypay.me/your_id)"
-  )
+ # 金額ごとに送金リンクを変える場合
+  if st.session_state.price == 150:
+    paypay_url = "https://qr.paypay.ne.jp/p2p01_c2MZuCGoCeyv9mLB"  # 150円用のURL
+  elif st.session_state.price == 250:
+    paypay_url = "https://qr.paypay.ne.jp/p2p01_pRBtYbjovwVz6Cpt"  # 250円用のURL
+  else:
+    paypay_url = "https://qr.paypay.ne.jp/p2p01_duKTj45nemf7gA64"  # 300円用のURL
 
   st.markdown("---")
 
