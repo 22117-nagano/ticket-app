@@ -34,10 +34,10 @@ if not st.session_state.purchased:
     st.rerun()
 
   # 三種3本 300円
-  st.subheader("🐓 三種3本（300円）")
-  if st.button("三種3本を購入する"):
+  st.subheader("🐓 三種1セット（300円）")
+  if st.button("三種1セットを購入する"):
     st.session_state.purchased = True
-    st.session_state.item_name = "三種3本"
+    st.session_state.item_name = "三種1セット"
     st.session_state.price = 300
     st.rerun()
 
