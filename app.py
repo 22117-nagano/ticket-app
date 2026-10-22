@@ -36,3 +36,28 @@ if st.button("三種3本を購入する"):
   st.success("以下のリンクからお支払いをお願いします！")
   st.markdown("[👉 PayPay送金ページを開く](https://qr.paypay.ne.jp/p2p01_duKTj45nemf7gA64)")
   st.info("※お支払い完了画面のスクショをスタッフにお見せください。")
+
+# 購入ボタンが押された後の「完了画面（証明・スクショ用）」
+else:
+  st.success("🎉 決済手続きに進みます！")
+  st.markdown(
+      f"### 選択商品: **{st.session_state.item_name} ({st.session_state.price}円)**"
+  )
+
+  st.warning(
+      "⚠️ **手順**\n"
+      "1. 下のボタンからお支払いをお願いします。\n"
+      "2. **お支払いが完了したら、この画面をスクリーンショット保存してください。**\n"
+      "3. 当日の受付でこの画面のスクショをご提示ください。"
+  )
+
+  # PayPayのリンク（店舗用や指定金額リンクに変更可能）
+  st.markdown(
+      f"[👉 PayPay送金画面を開く (¥{st.session_state.price})](https://paypay.me/your_id)"
+  )
+
+  st.markdown("---")
+
+  if st.button("← 商品選びに戻る"):
+    st.session_state.purchased = False
+    st.rerun()
