@@ -55,13 +55,18 @@ else:
       "3. 当日の受付でこの画面のスクショをご提示ください。"
   )
 
- # 金額ごとに送金リンクを変える場合
+  # ▼▼▼ ここで金額ごとにURLを切り替えています ▼▼▼
   if st.session_state.price == 150:
-    paypay_url = "https://qr.paypay.ne.jp/p2p01_c2MZuCGoCeyv9mLB"  # 150円用のURL
+    paypay_url = "https://qr.paypay.ne.jp/p2p01_c2MZuCGoCeyv9mLB"  # ←150円用のURLに変更
   elif st.session_state.price == 250:
-    paypay_url = "https://qr.paypay.ne.jp/p2p01_pRBtYbjovwVz6Cpt"  # 250円用のURL
+    paypay_url = "https://qr.paypay.ne.jp/p2p01_pRBtYbjovwVz6Cpt"  # ←250円用のURLに変更
   else:
-    paypay_url = "https://qr.paypay.ne.jp/p2p01_duKTj45nemf7gA64"  # 300円用のURL
+    paypay_url = "https://qr.paypay.ne.jp/p2p01_duKTj45nemf7gA64"  # ←300円用のURLに変更
+  # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+  st.markdown(
+      f"[👉 PayPay送金画面を開く (¥{st.session_state.price})]({paypay_url})"
+  )
 
   st.markdown("---")
 
